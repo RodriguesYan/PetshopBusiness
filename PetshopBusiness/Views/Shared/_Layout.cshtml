@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PetshopBusiness</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header class="layout-header">
+        <div class="header-search">
+            <a href="@(Url.Action("Index", "Home"))">
+                <div class="logo-petshot-div">
+                    <img src="~/images/Layout/logo_petshop_blue.png" class="logo-petshot" />
+                </div>
+            </a>
+            <div class="search-textbox-div">
+                <div class="search-txb-div">
+                    @Html.TextBox("Search", null, "", new { @class = "search-layout", placeholder = "O que você precisa para seu pet?" })
+                </div>
+                <div class="btn-search-div">
+                    <button class="btn-search-layout"></button>
+                </div>
+
+                <div class="user-area-layout">
+                    <div>
+                        <img src="~/images/Layout/user-alt-512.png" class="icon-user" />
+                    </div>
+                </div>
+
+                <div class="login-links-div">
+                    <div>
+                        <span>
+                            Bem vindo
+                        </span>
+                    </div>
+                    <div>
+                        <a class="login-link" href="@(Url.Action("Login", "Home"))">Entre ou Cadastre-se</a>
+                    </div>
+                </div>
+
+                <div class="cart-area">
+                    <div>
+                        <i style="font-size:40px;" class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    </div>
+                    <div class="cart-links-div">
+                        <div>
+                            <span style="color: white">Carrinho</span>
+                        </div>
+                        <div>
+                            <span style="color:white">0 item</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
+            <div class="nav-content" @*class="container"*@>
+                @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PetshopBusiness</a>*@
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse list-links-div">
+                    <ul class="navbar-nav flex-grow-1 list-links">
+                        <li class="nav-item effect-setter">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item effect-setter">
+                            <a class="nav-link 'sides'" asp-area="" asp-controller="Home" asp-action="Privacy">Cachorros</a>
+                        </li>
+                        <li class="nav-item effect-setter">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Privacy">Gatos</a>
+                        </li>
+                        <li class="nav-item effect-setter">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Privacy">Pássaros</a>
+                        </li>
+                        <li class="nav-item effect-setter">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Privacy">Peixes</a>
+                        </li>
+                        <li class="nav-item effect-setter">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Privacy">Promoções</a>
+                        </li>
+                        <li class="nav-item effect-setter">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Privacy">Dog Walk</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <div @*class="container"*@>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @*<footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2021 - PetshopBusiness - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

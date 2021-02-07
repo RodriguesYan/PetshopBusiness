@@ -1,0 +1,150 @@
+﻿.layout-header {
+}
+
+.header-search {
+    background: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    /*padding-left: 100px;*/
+    background: #00a3b4;
+    /*opacity: 0.5;*/
+}
+
+.logo-petshot-div {
+}
+
+.btn-search-div {
+    margin-left: -52px;
+    margin-top: 4px;
+    z-index: 9999;
+}
+
+.logo-petshot {
+    width: 100px;
+    height: 100px;
+}
+
+.search-textbox-div {
+    display: flex;
+    width: 100%;
+    margin-left: 60px;
+    align-items: center;
+    max-width: 1000px;
+}
+
+.search-txb-div {
+    width: 100%;
+    max-width: 630px;
+}
+
+.search-textbox-div .search-layout {
+    border: 0;
+    border-radius: 5px;
+    color: #7f7f7d;
+    font-size: 14px;
+    padding: 10px 60px 10px 23px;
+    position: relative;
+    width: 100%;
+    /*box-shadow: 3px 4px 8px 6px #888888;*/
+}
+
+.navbar {
+    background-color: #0595a6;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+}
+
+.search-textbox-div .btn-search-layout {
+    /*background: #ec8213 url(//cobasi.vteximg.com.br/arquivos/Branco-175xxxhdpi.png) 50%/20px no-repeat;*/
+    background: #ec8213 url('../images/layout/search_white.jpg') 50%/20px no-repeat;
+    border: 0;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    /*height: 90%;*/
+    height: 38px;
+    outline: none;
+    /*position: absolute;*/
+    /*right: 2px;*/
+    /*text-indent: -99999px;*/
+    /*top: 2px;*/
+    width: 50px;
+}
+
+.user-area-layout {
+    display: flex;
+    margin-left: 35px;
+}
+
+.icon-user {
+    width: 38px;
+    height: 38px;
+}
+
+.login-links-div {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    line-height: 15px;
+    margin-left: 15px;
+}
+
+.login-link {
+    text-decoration: underline;
+    color: black;
+    font-size: 12px;
+}
+
+.cart-area {
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+}
+
+.cart-links-div {
+    margin-left: 20px;
+    line-height: 15px;
+}
+
+.list-links {
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    width: 100%;
+}
+
+.list-links-div {
+    width: 100%;
+}
+
+.nav-content {
+    /*display: flex;*/
+    width: 100%;
+    /*justify-content: center;*/
+}
+
+.effect-setter:hover {
+    background-color: #c4c4c4;
+    transition: background-color 1s
+}
+
+.effect-setter:not(:hover) {
+    transition: background-color 1s
+}
+/*Navbar*/
+@media (min-width: 576px) {
+    .navbar-expand-sm .navbar-nav {
+        -ms-flex-direction: row;
+        flex-direction: row;
+    }
+
+        .navbar-expand-sm .navbar-nav .nav-link {
+            padding-right: 1.6rem;
+            padding-left: 1.6rem;
+        }
+}
+/*Navbar*/

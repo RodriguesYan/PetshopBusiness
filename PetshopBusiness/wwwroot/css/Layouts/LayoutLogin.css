@@ -1,0 +1,17 @@
+﻿.layoutlogin-header {
+
+}
+
+.header-logo {
+    height: 150px;
+    width: 100%;
+    background-color: #00a3b4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-petshot {
+    width: 100px;
+    height: 100px;
+}

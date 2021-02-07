@@ -1,0 +1,64 @@
+﻿/*.bg-img-landing {
+    background-image: url('../../images/dog-playing.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 50vh;
+    background-position: center center;
+}*/
+
+.main-home-content {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.carousel-indicators {
+    bottom: -40px;
+}
+
+.carousel-inner {
+    margin-bottom: 50px;
+}
+
+.main-carousel {
+    height: 300px;
+}
+
+.carousel-indicators {
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 15;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-left: 0;
+    margin-right: 15%;
+    margin-left: 15%;
+    list-style: none;
+}
+
+    .carousel-indicators li {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin: 1px;
+        text-indent: -999px;
+        cursor: pointer;
+        background-color: #777\9;
+        background-color: rgba(0,0,0,0);
+        border: 1px solid #777;
+        border-radius: 50%;
+        opacity: 1;
+        margin: 0 8px;
+    }
+
+    .carousel-indicators .active {
+        width: 10px;
+        height: 10px;
+        margin: 0;
+        background-color: #000;
+    }

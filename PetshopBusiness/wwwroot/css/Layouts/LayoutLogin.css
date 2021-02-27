@@ -3,7 +3,7 @@
 }
 
 .header-logo {
-    height: 150px;
+    height: 100px;
     width: 100%;
     background-color: #00a3b4;
     display: flex;
@@ -14,4 +14,8 @@
 .logo-petshot {
     width: 100px;
     height: 100px;
+}
+
+.footer-login-img {
+    width: 100%;
 }

@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    @using Microsoft.AspNetCore.Http
+    @inject IHttpContextAccessor HttpContextAccessor
+    @{
+        var user = HttpContextAccessor.HttpContext.Session.GetString("User");
+        ClientUser clientUser = new ClientUser();
+        if (user != null)
+        {
+            clientUser = Newtonsoft.Json.JsonConvert.DeserializeObject<ClientUser>(user);
+        }
+    }
     <header class="layout-header">
         <div class="header-search">
             <a href="@(Url.Action("Index", "Home"))">
@@ -31,14 +41,33 @@
                 </div>
 
                 <div class="login-links-div">
-                    <div>
-                        <span>
-                            Bem vindo
-                        </span>
+                    <div style="display: flex">
+                        <div>
+                            <span>
+                                Bem vindo
+                            </span>
+                        </div>
+                        @if (user != null)
+                        {
+                            <div style="margin-left: 10px;">
+                                <span>
+                                    @clientUser.Name.Split(" ").First()
+                                </span>
+                            </div>
+                        }
                     </div>
-                    <div>
-                        <a class="login-link" href="@(Url.Action("Login", "Home"))">Entre ou Cadastre-se</a>
-                    </div>
+                    @if (user == null)
+                    {
+                        <div>
+                            <a class="login-link" href="@(Url.Action("Login", "Home"))">Entre ou Cadastre-se</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <a class="login-link" href="@(Url.Action("MyAccount", "Home"))">Minha Conta</a>
+                        </div>
+                    }
                 </div>
 
                 <div class="cart-area">
@@ -92,7 +121,7 @@
             </div>
         </nav>
     </header>
-    
+
     <div @*class="container"*@>
         <main role="main" class="pb-3">
             @RenderBody()

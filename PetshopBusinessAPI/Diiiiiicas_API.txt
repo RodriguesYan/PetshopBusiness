@@ -1,0 +1,73 @@
+Ta quase pronto a API
+	
+
+Login validado
+	Ta mandando pra landing com o cara logado, storando token e validando quando o user nao existe
+	Falta fazer para o create user
+
+1 - Retornar mensagem que nao existe o user, quando tentar fazer login
+2 - Mensagem de user existente quando tentar criar um user
+3 - 
+3 - Redirecionar para landing com o cara logado		
+
+1 - Se fazer com session, ver como faz pra expirar uma session
+2 - Ver como matar um token (se precisar, ja que da pra dar um session.clean() para matar na web
+3 - Fazer validação de confirmação de senha (tem que ser igual)
+4 - No form de creat account, fazer um esquema para mostrar o progresso de segurança da senha
+	8 digitos, caractere especial, numero, blablabla
+5 - Fazer tela de VerifyCode
+6 - 
+
+
+
+Diiiica:
+	No retorno 201, pode por a url usando Url.Action("nomeDoMetodo", new { id = id})
+		Created(uri, objetoCriado
+		Usar BadRequest se der errado
+		NoContent() => Usar para remoção de objeto
+		
+	O icone do iis tem duas portas: https e http. Bom usar a http com o postman
+	
+	Ok(objeto) => retorna um objeto com status 200
+	
+	[HttpDelete("{id}")]
+	
+	Criar Alias para importar alguma classe
+	using Lista = Alura.ListaLeitura.Modelos.ListaLeitura;
+	
+	Para retornar uma imagem no postman ou outro lugar
+		 converter a imagem para bite[]
+		 return File(imagem, "image/png")
+		 
+	 Vc pode solicitar no header o tipo de dados que vc quer da api
+		bota na key Accept e no value o tipo que vc quer
+		.net core tem que baixar nuget para retornar xml
+		Microsoft.AspNetCore.Mvc.Formatters.Xml
+		Ir no startup, em services, add no services.AddMvc() o seguinte:
+			services.AddMvs.AddXmlSerializerFormatters();
+			User dataAnotation [XmlType("Livro")] em cima da classe que vc quer mudar o nome no retorno
+			
+----------------------------------------------
+Store token em cookie
+	//FORMA DO ALURA
+		/* No metodo que for fazer o login:
+			List<Claim> claims = new List<Claim>
+			{
+				new Claim(ClaimTypes.Name, login.Login),
+				new Claim("Token", result.Token)
+			};
+			ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+			ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+		
+			Por no startup =>
+			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+				.AddCookie(options => {
+					options.LoginPath = "/Usuario/Login";
+				});
+		*/
+
+		//Se usar o cookie, usar HttpContext.SignOutAsync para matar o cookie
+
+		//Pegar o token do cookie
+		//var token = HttpContext.User.Claims.First(c => c.Type == "Token").Value;

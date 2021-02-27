@@ -1,8 +1,76 @@
-﻿
+﻿@model PetshopBusiness.VMLogin
+
 @{
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
+<link href="~/css/Login/Login.css" rel="stylesheet" />
 
-<h1>Login</h1>
+<section class="main-content-login">
+    <div class="align">
+        @*<img class="logo" src="img/logo.svg">*@
+        <div class="card">
+            <div class="head">
+                <div></div>
+                <a id="login" class="selected" href="#login">Login</a>
+                <a id="register" href="#register">Registrar</a>
+                <div></div>
+            </div>
+            <div class="tabs">
+                @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.Hidden("formValue", "login")
+                    <div class="inputs login-inputs">
+                        <div class="input">
+                            @*<input placeholder="Email" type="text">*@
+                            @Html.TextBoxFor(t => t.Email, new { placeholder = "Email" })
+                            <img src="~/images/Login/mail.svg">
+                        </div>
+                        <div class="input">
+                            @*<input placeholder="Password" type="password">*@
+                            @Html.TextBoxFor(t => t.Password, new { placeholder = "Senha", type = "password" })
+                            <img src="~/images/Login/pass.svg">
+                        </div>
+                        <span class="msg-error">@Html.ValidationMessage("loginError")</span>
+                        <label class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe, new { @name = "RememberMe" })
+                            <span>Lembrar senha</span>
+                        </label>
+                    </div>
+                    <button type="submit">Login</button>
+                }
 
+                @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.Hidden("formValue", "register")
+
+                    <div class="inputs">
+                        @*<div class="input">
+                                @Html.TextBoxFor(t => t.Email, new { placeholder = "Email" })
+                                <img src="~/images/Login/mail.svg">
+                            </div>*@
+                        <div class="input">
+                            @Html.TextBoxFor(t => t.Email, new { placeholder = "Email" })
+                            <img src="~/images/Login/mail.svg">
+                        </div>
+                        <div class="input">
+                            @*<input placeholder="Senha" type="password">*@
+                            @Html.TextBoxFor(t => t.Password, new { placeholder = "Senha", type = "password" })
+                            <img src="~/images/Login/pass.svg">
+                        </div>
+                        <div class="input">
+                            @*<input placeholder="Confirmar senha" type="password">*@
+                            @Html.TextBoxFor(t => t.Password2, new { placeholder = "Confirmar senha", type = "password" })
+                            <img src="~/images/Login/pass.svg">
+                        </div>
+                    </div>
+                    <button value="register" type="submit">Registrar</button>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/Login/Login.js"></script>
+}

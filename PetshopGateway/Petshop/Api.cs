@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PetshopDB.Models;
+using PetshopGateway.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace PetshopGateway.Petshop
@@ -18,6 +21,8 @@ namespace PetshopGateway.Petshop
     public class Api// : IApi
     {
         private readonly HttpClient _httpClient;
+        private readonly string JwtToken;
+        private IHttpContextAccessor httpContext;
 
         //HttpClient _httpClient;
 
@@ -39,12 +44,17 @@ namespace PetshopGateway.Petshop
         //    _httpClient = httpCLient;
         //}
 
-
-        public Api(/*HttpClient httpCLient, string token*/)
+        public Api(string token = null)
         {
+            JwtToken = token;
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("http://localhost:59841/api/v1.0/");
-            //Token = token;
+            _httpClient.DefaultRequestHeaders.Add("Accept", "authentication/json");
+            if(token != null)
+            {
+                _httpClient.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            }
         }
 
         public object Template()
@@ -88,12 +98,25 @@ namespace PetshopGateway.Petshop
             //HttpContent content = CreateMultipartFormDataContent(model);=> usar isso só se for mandar imagem ou algo do tipo pro DB
 
             //var result = await _httpCLient.PostAsJsonAsync<dynamic>("CreateUser/login", model);
+            LoginResponse resultTest;
 
-            LoginResponse resultTest = new LoginResponse
+            if (model.Name != null)
             {
-                Login = model.Email,
-                Password = model.Password,
-            };
+                resultTest = new LoginResponse
+                {
+                    Login = model.Email,
+                    Name = model.Name,
+                    Password = model.Password,
+                };
+            }
+            else
+            {
+                resultTest = new LoginResponse
+                {
+                    Login = model.Email,
+                    Password = model.Password,
+                };
+            }
 
             var result = await _httpClient.PostAsJsonAsync(uri, resultTest);
 
@@ -102,7 +125,7 @@ namespace PetshopGateway.Petshop
                 return new LoginResult
                 {
                     Succeeded = result.IsSuccessStatusCode,
-                    ErrorMessage = result.IsSuccessStatusCode ? "Usuario ou senha está incorreto." : "",
+                    ErrorMessage = "",
                     LoginProperties = await result.Content.ReadAsAsync<LoginProperties>() //.ReadAsync()//da pra por o tipo <Class>
                 };
             }
@@ -116,6 +139,28 @@ namespace PetshopGateway.Petshop
                 //ErrorMessage = await result.Content.ReadAsStringAsync(),
                 ErrorMessage = message.message,
             };
+        }
+
+        public async Task<VMAddress> GetAddress(int UserId)
+        {
+            var result = await _httpClient.GetAsync($"ClientUser/GetAddress?userId={UserId}");
+            var teste = await result.Content.ReadAsAsync<VMAddress>();
+
+            return teste;
+        }
+
+        public async Task<string> CreateAddress(VMAddress address, string token)
+        {
+            var result = await _httpClient.PostAsJsonAsync("ClientUser/CreateAddress", address);
+
+            return "Success";
+        }
+
+        public async Task<string> EditAddress(VMAddress address, string token)
+        {
+            var result = await _httpClient.PutAsJsonAsync($"ClientUser/EditAddress/{address.AddressId}", address);
+
+            return "Success";
         }
 
         private HttpContent CreateMultipartFormDataContent(ClientUser model)
@@ -139,6 +184,12 @@ namespace PetshopGateway.Petshop
 
             return content;
         }
+
+        private void SetHeader(string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+        }
     }
 
     public class LoginResult
@@ -159,6 +210,7 @@ namespace PetshopGateway.Petshop
     {
         public string Login { get; set; }
         public string Password { get; set; }
+        public string Name { get; set; }
         public string FormValue { get; set; }
     }
 }

@@ -27,6 +27,7 @@ namespace PetshopGateway
             //{
             //    client.BaseAddress = new Uri("http://localhost:59841/api/");
             //});
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
 

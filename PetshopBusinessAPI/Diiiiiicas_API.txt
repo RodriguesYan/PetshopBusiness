@@ -1,16 +1,26 @@
 Ta quase pronto a API
 	
 
-Login validado
-	Ta mandando pra landing com o cara logado, storando token e validando quando o user nao existe
-	Falta fazer para o create user
+Tela de settings
+	Ja da editando bonito
+		Falta tratar excessões etc...
+		Talvez fazer um menuzinho lateral, para ver as orders do cara
+		
+		
+	Fazer um esquema para, quando o token tiver expirado, redirecionar pra landing com o cara deslogado
+	
+	Updatar os dados do user
+		Fazer endpoint na API para pegar endereço do user e update
+			Fazer um popup falando que o address foi criado
+			
+		Apagar o erro de login errado quando começar a digitar de novo
+		
+	Fazer processo de segurança de senha (qtd de caracteres, letra maiuscula, blablabla)
+	
+	
+	
+	
 
-1 - Retornar mensagem que nao existe o user, quando tentar fazer login
-2 - Mensagem de user existente quando tentar criar um user
-3 - 
-3 - Redirecionar para landing com o cara logado		
-
-1 - Se fazer com session, ver como faz pra expirar uma session
 2 - Ver como matar um token (se precisar, ja que da pra dar um session.clean() para matar na web
 3 - Fazer validação de confirmação de senha (tem que ser igual)
 4 - No form de creat account, fazer um esquema para mostrar o progresso de segurança da senha

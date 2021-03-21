@@ -3,7 +3,6 @@
     margin: 0;
     padding: 0;
     text-decoration: none;
-    font-family: "Roboto";
     outline: none;
     border: none;
 }
@@ -38,6 +37,18 @@ html, body {
     transition: max-height 0.2s;
 }
 
+.card-create {
+    margin-top: 28px;
+    height: 100%;
+    max-height: 560px;
+    width: 396px;
+    background: #121212;
+    border: 1px solid #373737;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: max-height 0.2s;
+}
+
 .extend {
     max-height: 480px;
 }
@@ -47,7 +58,7 @@ html, body {
     display: flex;
     height: 72px;
     border-bottom: 1px solid #373737;
-    justify-content: space-between;
+    justify-content: center;
 }
 
     .head a {
@@ -170,18 +181,23 @@ form {
         background-size: cover;
     }
 
-.card button {
+.card button, .card-create button {
     display: block;
-    background: #00FF5C;
+    background: #BDBDBD;
     padding: 14px 52px;
     border-radius: 12px;
     color: #003B15;
     font-weight: 700;
     font-size: 21px;
-    cursor: pointer;
+    cursor: initial;
+    pointer-events: none;
 }
 
 .msg-error {
     color: #ff726f;
     font-weight: bold;
+}
+
+.create-account-div a {
+    color: #FFF;
 }

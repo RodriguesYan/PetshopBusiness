@@ -19,7 +19,7 @@ namespace PetshopBusinessAPI.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
-    [ApiExplorerSettings(GroupName ="v1")]//Se for v2, exibiria somente os metodos da versao 2
+    [ApiExplorerSettings(GroupName = "v1")]//Se for v2, exibiria somente os metodos da versao 2
     //[ApiVersion("2.0")] => um controlador da pra suportar mais de uma versão
     [Route("api/v{version:apiVersion}/[controller]")]
     public class ClientUserController : ControllerBase
@@ -35,7 +35,7 @@ namespace PetshopBusinessAPI.Controllers
         [HttpPost]
         [Route("login")]
         //[ProducesResponseType(statusCode:200, Type = typeof(retorno do endpoint))]
-        [ProducesResponseType(statusCode:500, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(statusCode: 500, Type = typeof(ErrorResponse))]
         [ProducesResponseType(statusCode: 404)]//Esses caras implementam UI de request no swagger
         [SwaggerOperation(Summary = "Gera um jwt token para autenticação")]
         //[AllowAnonymous]
@@ -46,7 +46,7 @@ namespace PetshopBusinessAPI.Controllers
 
             if (user == null)
             {
-                return NotFound( new { message = "Usuario ou senha está incorreto." });
+                return NotFound(new { message = "Usuario ou senha está incorreto." });
             }
 
             var token = TokenService.GenerateToken(user);
@@ -69,9 +69,13 @@ namespace PetshopBusinessAPI.Controllers
         //public async Task<ActionResult<ClientUser>> CreateUser([FromBody] VMLogin clientUser)
         public async Task<ActionResult<dynamic>> CreateUser([FromBody] [SwaggerParameter("ClientUser a ser criado")]  VMLogin clientUser)
         {
-            var user = _context.ClientUser.Where(t => t.Login == clientUser.Login && t.Password == clientUser.Password).FirstOrDefault();
+            var user = _context.ClientUser.Where(t => t.Login == clientUser.Login).FirstOrDefault();
 
-            if(user == null)
+            if (user != null)
+            {
+                return BadRequest(new { Message = "Esse Usuário ja existe" });
+            }
+            else
             {
                 user = new ClientUser()
                 {
@@ -84,10 +88,6 @@ namespace PetshopBusinessAPI.Controllers
                 //clientUser.InsertDate = DateTime.Now;
                 _context.ClientUser.Add(user);
                 await _context.SaveChangesAsync();
-            }
-            else
-            {
-
             }
 
             var token = TokenService.GenerateToken(user);
@@ -103,6 +103,98 @@ namespace PetshopBusinessAPI.Controllers
             //return CreatedAtAction("GetUserApp", new { id = user.ClientUserId }, user);
             //return Created();
         }
+
+        [Authorize]
+        [HttpGet]
+        [Route("GetAddress")]
+        public async Task<ActionResult<dynamic>> GetAddress(int UserId)
+        {
+            var address = (from db in _context.ClientUserAddress
+                           join f in _context.Address on db.AddressId equals f.AddressId
+                           where db.ClientUserId == UserId
+                           select f).FirstOrDefault();
+
+            return address;
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("CreateAddress")]
+        public async Task<ActionResult<dynamic>> CreateAddress(VMAddress address)
+        {
+            try
+            {
+                var newAddress = new Address()
+                {
+                    Cep = address.Cep,
+                    Street = address.Street,
+                    Number = address.Number,
+                    Complement = address.Complement,
+                    County = address.County,
+                    City = address.City,
+                    State = address.State
+                };
+
+                _context.Address.Add(newAddress);
+
+                await _context.SaveChangesAsync();
+
+                var clientAddress = new ClientUserAddress()
+                {
+                    AddressId = newAddress.AddressId,
+                    ClientUserId = address.ClientUserId,
+                    InsertDate = DateTime.Now,
+                    IsDefault = true,
+                };
+
+                _context.ClientUserAddress.Add(clientAddress);
+
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { Message = "Não foi possivel salvar esse endereço" });
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("EditAddress/{id}")]
+        public async Task<ActionResult<dynamic>> EditAddress(VMAddress address)
+        {
+            Address addressToEdit = new Address
+            {
+                AddressId = address.AddressId,
+                Street = address.Street,
+                Number = address.Number,
+                County = address.County,
+                City = address.City,
+                State = address.State,
+                Cep = address.Cep,
+                Complement = address.Complement,
+            };
+
+            ClientUserAddress clientAddress = _context.ClientUserAddress.Where(t => t.AddressId == address.AddressId).FirstOrDefault();
+            clientAddress.UpdateDate = DateTime.Now;
+
+            try
+            {
+                _context.Address.Update(addressToEdit);
+                _context.ClientUserAddress.Update(clientAddress);
+
+                await _context.SaveChangesAsync();
+
+            }
+            catch(Exception e)
+            {
+                return BadRequest(new { Message = "Não foi possivel atualizar o endereço!" });
+            }
+
+            return Ok();
+        }
+
 
         [HttpGet]
         //[ProducesResponseType(statusCode: 200, Type = typeof(ClientUser))]

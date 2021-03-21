@@ -1,0 +1,111 @@
+﻿@model PetshopGateway.ViewModels.VMSettings
+@{
+    ViewData["Title"] = "Settings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/MyAccount/Settings.css" rel="stylesheet" />
+
+<main class="setting-main">
+    <div class="setting-main-content">
+        <div class="settings-title-div">
+            <span class="settings-title">
+                Minha Conta
+            </span>
+        </div>
+
+        @if (Model.Address.AddressId > 0)
+        {
+            @Html.Hidden("Teste", Json.Serialize(Model.Address))
+            <div class="address-description-card">
+                <div class="address-description-div">
+                    <div style="width: 135px">
+                        <span class="title-address-info">
+                            CEP:
+                        </span>
+                    </div>
+                    <div style="text-align: left">
+                        <span>
+                            @Model.Address.Cep
+                        </span>
+                    </div>
+                </div>
+                <div class="address-description-div">
+                    <div style="width: 135px">
+                        <span class="title-address-info">
+                            Logradouro:
+                        </span>
+                    </div>
+                    <div style="text-align: left">
+                        <span>
+                            @Model.Address.Street, Num: @Model.Address.Number
+                        </span>
+                    </div>
+                </div>
+                <div class="address-description-div">
+                    <div style="width: 135px">
+                        <span class="title-address-info">
+                            Complemento:
+                        </span>
+                    </div>
+                    <div style="text-align: left">
+                        <span>
+                            @Model.Address.Complement
+                        </span>
+                    </div>
+                </div>
+                <div class="address-description-div">
+                    <div style="width: 135px">
+                        <span class="title-address-info">
+                            Bairro:
+                        </span>
+                    </div>
+                    <div style="text-align: left">
+                        <span>
+                            @Model.Address.County
+                        </span>
+                    </div>
+                </div>
+                <div class="address-description-div">
+                    <div style="width: 135px">
+                        <span class="title-address-info">
+                            Cidade:
+                        </span>
+                    </div>
+                    <div style="text-align: left">
+                        <span>
+                            @Model.Address.City - @Model.Address.State
+                        </span>
+                    </div>
+                </div>
+                <div style="margin-top: 24px;width: 100%;display:flex;justify-content: center">
+                    <button onclick="HandleAddressCards();">EDIT</button>
+                </div>
+            </div>
+
+            <div class="edit-address-div">
+                @await Html.PartialAsync("_AddressForms.cshtml", Model.Address)
+            </div>
+        }
+        else
+        {
+            @await Html.PartialAsync("_AddressForms.cshtml", Model.Address)
+        }
+    </div>
+</main>
+
+@section Scripts {
+    <script src="~/lib//jquery//dist/jquery.min.js"></script>
+    @*<script src="~/lib/Inputmask-5.x/dist/inputmask.js"></script>*@
+    <script src="~/lib/Jquery_Mask/jquery.mask.js"></script>
+    <script src="~/js/MyAccount/Settings.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            //$('#cep-field').inputmask("00000-000");  //static mask
+            //$(selector).inputmask({"mask": "(999) 999-9999"}); //specifying options
+            //$(selector).inputmask("9-a{1,3}9{1,3}"); //mask with dynamic syntax
+        });
+    </script>
+}

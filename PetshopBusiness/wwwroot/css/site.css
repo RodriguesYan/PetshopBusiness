@@ -1,4 +1,8 @@
-﻿.layout-header {
+﻿body {
+    font-family: 'Montserrat';
+}
+
+.layout-header {
 }
 
 .header-search {
@@ -95,7 +99,7 @@
 
 .login-link {
     text-decoration: underline;
-    color: black;
+    color: white;
     font-size: 12px;
 }
 

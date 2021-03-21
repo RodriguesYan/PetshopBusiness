@@ -1,0 +1,73 @@
+﻿.setting-main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+.setting-main-content {
+    margin-left: 120px;
+}
+
+.settings-title-div {
+}
+
+.settings-title {
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.my-account-card {
+    background-color: #fff;
+    box-shadow: 5px 10px 8px 10px #888888;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2rem;
+    width: 100%;
+    max-width: 80vw;
+    padding: 36px 36px 36px 36px;
+    margin-top: 36px;
+}
+
+.address-description-card {
+    background-color: #fff;
+    box-shadow: 5px 10px 8px 10px #888888;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2rem;
+    width: 100%;
+    max-width: 600px;
+    padding: 36px 36px 36px 36px;
+    margin-top: 36px;
+}
+
+.verify-cep {
+    margin-left: 16px;
+}
+
+.error-cep {
+    display: none;
+    color: #e71717;
+}
+
+.address-description-div {
+    display: flex;
+}
+
+.title-address-info {
+    font-weight: bold;
+}
+
+.address-description-card button {
+    background-color: #00FF5C;
+    border-color: #00FF5C;
+    padding: 14px 52px;
+    border-radius: 12px;
+    color: #003B15;
+    font-weight: 700;
+    font-size: 21px;
+}
+
+.edit-address-div {
+    display: none;
+}

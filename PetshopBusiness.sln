@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetshopBusiness", "PetshopB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetshopDB", "PetshopDB\PetshopDB.csproj", "{B2754233-60F7-451F-8EF4-BC4BEFCB6111}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetshopGateway", "PetshopGateway\PetshopGateway.csproj", "{0DBF09AD-C4AB-409D-A4CF-9704D14E0C2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetshopGateway", "PetshopGateway\PetshopGateway.csproj", "{0DBF09AD-C4AB-409D-A4CF-9704D14E0C2C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{97C9E06F-DAFD-45BB-BA78-2F706B6E5A74}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

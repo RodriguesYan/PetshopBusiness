@@ -11,10 +11,8 @@
         @*<img class="logo" src="img/logo.svg">*@
         <div class="card">
             <div class="head">
-                <div></div>
                 <a id="login" class="selected" href="#login">Login</a>
-                <a id="register" href="#register">Registrar</a>
-                <div></div>
+                @*<a id="register" href="#register">Registrar</a>*@
             </div>
             <div class="tabs">
                 @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -23,12 +21,12 @@
                     <div class="inputs login-inputs">
                         <div class="input">
                             @*<input placeholder="Email" type="text">*@
-                            @Html.TextBoxFor(t => t.Email, new { placeholder = "Email" })
+                            @Html.TextBoxFor(t => t.Email, new { placeholder = "Email", id = "email-field" })
                             <img src="~/images/Login/mail.svg">
                         </div>
                         <div class="input">
                             @*<input placeholder="Password" type="password">*@
-                            @Html.TextBoxFor(t => t.Password, new { placeholder = "Senha", type = "password" })
+                            @Html.TextBoxFor(t => t.Password, new { placeholder = "Senha", type = "password", id = "password-field" })
                             <img src="~/images/Login/pass.svg">
                         </div>
                         <span class="msg-error">@Html.ValidationMessage("loginError")</span>
@@ -38,33 +36,12 @@
                         </label>
                     </div>
                     <button type="submit">Login</button>
-                }
 
-                @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    @Html.Hidden("formValue", "register")
-
-                    <div class="inputs">
-                        @*<div class="input">
-                                @Html.TextBoxFor(t => t.Email, new { placeholder = "Email" })
-                                <img src="~/images/Login/mail.svg">
-                            </div>*@
-                        <div class="input">
-                            @Html.TextBoxFor(t => t.Email, new { placeholder = "Email" })
-                            <img src="~/images/Login/mail.svg">
-                        </div>
-                        <div class="input">
-                            @*<input placeholder="Senha" type="password">*@
-                            @Html.TextBoxFor(t => t.Password, new { placeholder = "Senha", type = "password" })
-                            <img src="~/images/Login/pass.svg">
-                        </div>
-                        <div class="input">
-                            @*<input placeholder="Confirmar senha" type="password">*@
-                            @Html.TextBoxFor(t => t.Password2, new { placeholder = "Confirmar senha", type = "password" })
-                            <img src="~/images/Login/pass.svg">
-                        </div>
+                    <div class="create-account-div" style="margin-top: 10px;">
+                        <span style="color: white">
+                            Não tem uma conta? <a href="@(Url.Action("CreateAccount", "Home"))" style="font-weight: bold"> Criar conta</a>
+                        </span>
                     </div>
-                    <button value="register" type="submit">Registrar</button>
                 }
             </div>
         </div>

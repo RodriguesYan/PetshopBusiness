@@ -1,0 +1,55 @@
+﻿@model PetshopBusiness.VMLogin
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<link href="~/css/Login/Login.css" rel="stylesheet" />
+
+<section class="main-content-login">
+    <div class="align">
+        @*<img class="logo" src="img/logo.svg">*@
+        <div class="card-create">
+            <div class="head">
+                <a id="register" class="selected" href="#register">Registrar</a>
+            </div>
+            <div class="tabs">
+                @using (Html.BeginForm("CreateAccount", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.Hidden("formValue", "register")
+
+                    <div class="inputs">
+                        @*<div class="input">
+                                @Html.TextBoxFor(t => t.Email, new { placeholder = "Email" })
+                                <img src="~/images/Login/mail.svg">
+                            </div>*@
+                        <div class="input">
+                            @Html.TextBoxFor(t => t.Email, new { placeholder = "Email", id = "email-field" })
+                            <img src="~/images/Login/mail.svg">
+                        </div>
+                        <div class="input">
+                            @Html.TextBoxFor(t => t.Name, new { placeholder = "Nome completo", id = "name-field" })
+                            <img src="~/images/Login/user.svg">
+                        </div>
+                        <div class="input">
+                            @*<input placeholder="Senha" type="password">*@
+                            @Html.TextBoxFor(t => t.Password, new { placeholder = "Senha", type = "password", id = "password-field" })
+                            <img src="~/images/Login/pass.svg">
+                        </div>
+                        <div class="input">
+                            @*<input placeholder="Confirmar senha" type="password">*@
+                            @Html.TextBoxFor(t => t.Password2, new { placeholder = "Confirmar senha", type = "password", id = "password2-field" })
+                            <img src="~/images/Login/pass.svg">
+                        </div>
+                    </div>
+                    <span class="msg-error">@Html.ValidationMessage("signUpError")</span>
+                    <button value="register" type="submit">Registrar</button>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/Login/CreateAccountjs.js"></script>
+}

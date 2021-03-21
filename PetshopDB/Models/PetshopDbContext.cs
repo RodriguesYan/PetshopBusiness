@@ -18,10 +18,12 @@ namespace PetshopDB.Models
         }
 
         public DbSet<ClientUser> ClientUser { get; set; }
+        public DbSet<Address> Address { get; set; }
+        public DbSet<ClientUserAddress> ClientUserAddress { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=.\SQLEXPRESS;Initial Catalog=Petshop2;User ID=Rodrigues;Password=@Puta00001");
+            optionsBuilder.UseSqlServer(@"Data Source=.\SQLEXPRESS;Initial Catalog=Petshop2;User ID=Rodrigues;Password=Rodrigues@0002");
             //optionsBuilder.UseSqlServer(System.Configuration. "DevConnection");
         }
     }

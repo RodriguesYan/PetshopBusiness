@@ -10,8 +10,8 @@ using PetshopDB.Models;
 namespace PetshopBusinessAPI.Migrations
 {
     [DbContext(typeof(PetshopDbContext))]
-    [Migration("20210217225130_myfirstmigration")]
-    partial class myfirstmigration
+    [Migration("20210314175305_userandaddress")]
+    partial class userandaddress
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,39 @@ namespace PetshopBusinessAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("PetshopDB.Models.Address", b =>
+                {
+                    b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Cep")
+                        .HasColumnType("varchar(9)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Complement")
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("County")
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("varchar(2)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("AddressId");
+
+                    b.ToTable("Address");
+                });
 
             modelBuilder.Entity("PetshopDB.Models.ClientUser", b =>
                 {

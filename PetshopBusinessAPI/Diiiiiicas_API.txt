@@ -2,31 +2,30 @@ Ta quase pronto a API
 	
 
 Tela de settings
-	Ja da editando bonito
-		Falta tratar excessões etc...
-		Talvez fazer um menuzinho lateral, para ver as orders do cara
+	Talvez fazer um menuzinho lateral, para ver as orders do cara
+	
+	Landing
+		Depois do carousel, fazer o esquema com as 3 imagens que baixei
+		Depois dela, fazer um carouselzinho de produtos mais comprados
+			Tem exemplo no https://azpetshop.com.br
+			Royalpets.com.br
+		Fazer area de ofertas
+		Mais pra frente, fazer de categorias
 		
 		
 	Fazer um esquema para, quando o token tiver expirado, redirecionar pra landing com o cara deslogado
 	
 	Updatar os dados do user
-		Fazer endpoint na API para pegar endereço do user e update
-			Fazer um popup falando que o address foi criado
-			
 		Apagar o erro de login errado quando começar a digitar de novo
 		
 	Fazer processo de segurança de senha (qtd de caracteres, letra maiuscula, blablabla)
 	
-	
-	
+	Fazer esquema de cupom de desconto
 	
 
-2 - Ver como matar um token (se precisar, ja que da pra dar um session.clean() para matar na web
-3 - Fazer validação de confirmação de senha (tem que ser igual)
-4 - No form de creat account, fazer um esquema para mostrar o progresso de segurança da senha
-	8 digitos, caractere especial, numero, blablabla
-5 - Fazer tela de VerifyCode
-6 - 
+3 -	8 digitos, caractere especial, numero, blablabla
+4 - Fazer tela de VerifyCode
+5 - 
 
 
 

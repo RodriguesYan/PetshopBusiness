@@ -114,7 +114,12 @@ namespace PetshopBusinessAPI.Controllers
                            where db.ClientUserId == UserId
                            select f).FirstOrDefault();
 
-            return address;
+            if(address != null)
+            {
+                return address;
+            }
+
+            return NotFound();
         }
 
         [Authorize]
@@ -153,7 +158,7 @@ namespace PetshopBusinessAPI.Controllers
 
                 return Ok();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return BadRequest(new { Message = "Não foi possivel salvar esse endereço" });
             }
@@ -176,23 +181,26 @@ namespace PetshopBusinessAPI.Controllers
                 Complement = address.Complement,
             };
 
-            ClientUserAddress clientAddress = _context.ClientUserAddress.Where(t => t.AddressId == address.AddressId).FirstOrDefault();
-            clientAddress.UpdateDate = DateTime.Now;
-
             try
             {
+                ClientUserAddress clientAddress = _context.ClientUserAddress.Where(t => t.AddressId == address.AddressId).FirstOrDefault();
+                clientAddress.UpdateDate = DateTime.Now;
+
+                //throw new Exception();
+
                 _context.Address.Update(addressToEdit);
                 _context.ClientUserAddress.Update(clientAddress);
 
                 await _context.SaveChangesAsync();
 
+                return Ok();
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest(new { Message = "Não foi possivel atualizar o endereço!" });
             }
 
-            return Ok();
         }
 
 

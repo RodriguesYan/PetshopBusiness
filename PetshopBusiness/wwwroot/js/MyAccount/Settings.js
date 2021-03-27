@@ -55,3 +55,45 @@ function RenderEditAddress() {
     });
     debugger;
 }
+
+function CloseAddressForm() {
+    $(".edit-address-div").slideUp(200);
+    $(".address-description-card").slideDown(200);
+}
+
+function PersistAddress() {
+    var addressId = $("#AddressId").val();
+    var cep = $("#cep-field").val();
+    var street = $("#street-field").val();
+    var number = $("#number-field").val();
+    var complement = $("#complement-field").val();
+    var district = $("#district-field").val();
+    var city = $("#city-field").val();
+    var state = $("#state-field").val();
+
+    var VmSettings = {
+        AddressId: addressId,
+        Cep: cep,
+        Street: street,
+        Number: number,
+        Complement: complement,
+        County: district,
+        City: city,
+        State: state
+    }
+
+    $.post("/MyAccount/Settings", VmSettings, function (data) {
+        debugger;
+        if (data.isSuccess) {
+            location.href = "/MyAccount/Settings";
+        } else {
+            $(".error-address-text").html(data.errorMessage);
+
+            setTimeout(function () {
+                $(".error-address-text").html("");
+            }, 6000);
+        }
+    });
+
+
+}

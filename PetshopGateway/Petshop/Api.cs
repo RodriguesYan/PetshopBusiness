@@ -144,23 +144,44 @@ namespace PetshopGateway.Petshop
         public async Task<VMAddress> GetAddress(int UserId)
         {
             var result = await _httpClient.GetAsync($"ClientUser/GetAddress?userId={UserId}");
-            var teste = await result.Content.ReadAsAsync<VMAddress>();
+            var address = new VMAddress();
 
-            return teste;
+            if((int)result.StatusCode == 200)
+            {
+                address  = await result.Content.ReadAsAsync<VMAddress>();
+            }
+
+            return address;
         }
 
         public async Task<string> CreateAddress(VMAddress address, string token)
         {
             var result = await _httpClient.PostAsJsonAsync("ClientUser/CreateAddress", address);
 
-            return "Success";
+            if (result.IsSuccessStatusCode)
+            {
+                return "Success";
+            }
+
+            string errorJson = await result.Content.ReadAsStringAsync();
+            var message = JsonConvert.DeserializeObject<dynamic>(errorJson);
+
+            return message.message;
         }
 
         public async Task<string> EditAddress(VMAddress address, string token)
         {
             var result = await _httpClient.PutAsJsonAsync($"ClientUser/EditAddress/{address.AddressId}", address);
 
-            return "Success";
+            if(result.IsSuccessStatusCode)
+            {
+                return "Success";
+            }
+
+            string errorJson = await result.Content.ReadAsStringAsync();
+            var message = JsonConvert.DeserializeObject<dynamic>(errorJson);
+
+            return message.message;
         }
 
         private HttpContent CreateMultipartFormDataContent(ClientUser model)

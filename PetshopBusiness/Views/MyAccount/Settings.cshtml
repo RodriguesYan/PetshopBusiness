@@ -16,7 +16,7 @@
 
         @if (Model.Address.AddressId > 0)
         {
-            @Html.Hidden("Teste", Json.Serialize(Model.Address))
+            @Html.Hidden("SettingsModel", Json.Serialize(Model.Address))
             <div class="address-description-card">
                 <div class="address-description-div">
                     <div style="width: 135px">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <div style="margin-top: 24px;width: 100%;display:flex;justify-content: center">
-                    <button onclick="HandleAddressCards();">EDIT</button>
+                    <button onclick="HandleAddressCards();">EDITAR</button>
                 </div>
             </div>
 

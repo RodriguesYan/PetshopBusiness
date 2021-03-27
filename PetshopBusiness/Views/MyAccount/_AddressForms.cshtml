@@ -34,61 +34,77 @@
                                                                                             }, "Text", "Value");
 }
 
-<div class="my-account-card">
-    @using (Html.BeginForm("Settings", "MyAccount", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="inputEmail4">CEP</label>
-                <div style="display: flex">
-                    @*<input type="text" class="form-control" id="inputEmail4" placeholder="00000-000" onkeyup="somenteNumeros(this.value);" />*@
-                    @Html.TextBoxFor(t => t.Cep, new { @class = "form-control", id = "cep-field", placeholder = "00000-000", @*onkeyup = "somenteNumeros(this);",*@data_mask = "00000-000" })
-                    <input type="button" onclick="GetAddressInfo();" class="verify-cep" value="Verificar" />
-                </div>
-                <span class="error-cep">Cep inválido</span>
-            </div>
-        </div>
-        @Html.HiddenFor(t => t.AddressId)
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputAddress">Logradouro</label>
-                @Html.TextBoxFor(t => t.Street, new { @class = "form-control", id = "street-field", placeholder = "Rua Augusta" })
-                @*<input type="text" class="form-control" id="street-field" placeholder="Rua Suiça">*@
-            </div>
-            <div class="form-group col-md-2">
-                <label for="inputAddress2">Numero</label>
-                @Html.TextBoxFor(t => t.Number, new { @class = "form-control", id = "number-field", placeholder = "666" })
-                @*<input type="text" class="form-control" id="number-field" placeholder="666">*@
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputCity">Complemento</label>
-                @Html.TextBoxFor(t => t.Complement, new { @class = "form-control", id = "complement-field", placeholder = "Casa/ Bloco 1 apt 110" })
-                @*<input type="text" class="form-control" id="complement-field" placeholder="Casa/ Bloco 1 apt 110">*@
-            </div>
-            <div class="form-group col-md-6">
-                <label for="inputCity">Bairro</label>
-                @Html.TextBoxFor(t => t.County, new { @class = "form-control", id = "district-field", placeholder = "Jardim Alvorada" })
-                @*<input type="text" class="form-control" id="district-field" placeholder="Jardim Alvorada">*@
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputCity">Cidade</label>
-                @Html.TextBoxFor(t => t.City, new { @class = "form-control", id = "city-field", placeholder = "Osasco" })
-                @*<input type="text" class="form-control" id="city-field" placeholder="Osasco">*@
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputState">Estado</label>
-                @Html.DropDownListFor(t => t.State, stateList, "Selecione um Estado", new { id = "state-field", @class = "form-control" })
-                @*<select id="state-field" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                    </select>*@
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">@(Model.AddressId > 0 ? "EDIT" : "CREATE")</button>
+<style>
+    .error-address-text {
+        color: #f02d2d;
     }
+</style>
+
+<div class="my-account-card">
+    @*@using (Html.BeginForm("Settings", "MyAccount", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {*@
+    <div class="btn-close-forms-div" onclick="CloseAddressForm();">
+        <span style="color: white;font-weight: bold">
+            X
+        </span>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputEmail4">CEP</label>
+            <div style="display: flex">
+                @*<input type="text" class="form-control" id="inputEmail4" placeholder="00000-000" onkeyup="somenteNumeros(this.value);" />*@
+                @Html.TextBoxFor(t => t.Cep, new { @class = "form-control", id = "cep-field", placeholder = "00000-000", @*onkeyup = "somenteNumeros(this);",*@data_mask = "00000-000" })
+                <input type="button" onclick="GetAddressInfo();" class="verify-cep" value="Verificar" />
+            </div>
+            <span class="error-cep">Cep inválido</span>
+        </div>
+    </div>
+    @Html.HiddenFor(t => t.AddressId)
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputAddress">Logradouro</label>
+            @Html.TextBoxFor(t => t.Street, new { @class = "form-control", id = "street-field", placeholder = "Rua Augusta" })
+            @*<input type="text" class="form-control" id="street-field" placeholder="Rua Suiça">*@
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputAddress2">Numero</label>
+            @Html.TextBoxFor(t => t.Number, new { @class = "form-control", id = "number-field", placeholder = "666" })
+            @*<input type="text" class="form-control" id="number-field" placeholder="666">*@
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputCity">Complemento</label>
+            @Html.TextBoxFor(t => t.Complement, new { @class = "form-control", id = "complement-field", placeholder = "Casa/ Bloco 1 apt 110" })
+            @*<input type="text" class="form-control" id="complement-field" placeholder="Casa/ Bloco 1 apt 110">*@
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputCity">Bairro</label>
+            @Html.TextBoxFor(t => t.County, new { @class = "form-control", id = "district-field", placeholder = "Jardim Alvorada" })
+            @*<input type="text" class="form-control" id="district-field" placeholder="Jardim Alvorada">*@
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputCity">Cidade</label>
+            @Html.TextBoxFor(t => t.City, new { @class = "form-control", id = "city-field", placeholder = "Osasco" })
+            @*<input type="text" class="form-control" id="city-field" placeholder="Osasco">*@
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputState">Estado</label>
+            @Html.DropDownListFor(t => t.State, stateList, "Selecione um Estado", new { id = "state-field", @class = "form-control" })
+        </div>
+    </div>
+
+    <div>
+        <span class="error-address-text">
+
+        </span>
+    </div>
+
+    <div style="margin-top: 24px;width: 100%;display:flex;justify-content: center">
+        <button @*type="submit"*@ class="btn btn-primary" onclick="PersistAddress();">@(Model.AddressId > 0 ? "EDITAR" : "CRIAR")</button>
+    </div>
+    @*}*@
 </div>

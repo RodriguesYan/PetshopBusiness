@@ -36,7 +36,7 @@ namespace PetshopBusiness.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Settings(VMAddress vm)
+        public async Task<JsonResult> Settings(VMAddress vm)
         {
             SetToken();
             _api = new Api(jwtToken);
@@ -53,8 +53,17 @@ namespace PetshopBusiness.Controllers
                 result = await _api.CreateAddress(vm, jwtToken);
             }
 
+            if (result == "Success")
+            {
+                return Json(new { IsSuccess = true });
+            }
+            else
+            {
+                return Json(new { IsSuccess = false, ErrorMessage = result });
+            }
 
-            return RedirectToAction("Settings");
+
+            //return RedirectToAction("Settings");
         }
 
         private void SetToken()
